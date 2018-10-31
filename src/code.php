@@ -27,18 +27,19 @@ function isLogged($userID){
 }
 
 function getMonth($month){
-    if($month == 01 || $month == 1) return 'gennaio';
-    if($month == 02 || $month == 2) return 'febbraio';
-    if($month == 03 || $month == 3) return 'marzo';
-    if($month == 04 || $month == 4) return 'aprile';
-    if($month == 05 || $month == 5) return 'maggio';
-    if($month == 06 || $month == 6) return 'giugno';
-    if($month == 07 || $month == 7) return 'luglio';
-    if($month == 08 || $month == 8) return 'agosto';
-    if($month == 09 || $month == 9) return 'settembre';
-    if($month == 10 || $month == 10) return 'ottobre';
-    if($month == 11 || $month == 11) return 'novembre';
-    if($month == 12 || $month == 12) return 'dicembre';
+    $month = intval($month);
+    if($month == 1) return 'gennaio';
+    if($month == 2) return 'febbraio';
+    if($month == 3) return 'marzo';
+    if($month == 4) return 'aprile';
+    if($month == 5) return 'maggio';
+    if($month == 6) return 'giugno';
+    if($month == 7) return 'luglio';
+    if($month == 8) return 'agosto';
+    if($month == 9) return 'settembre';
+    if($month == 10) return 'ottobre';
+    if($month == 11) return 'novembre';
+    if($month == 12) return 'dicembre';
 }
 
 function getNumberEmoji($number){
