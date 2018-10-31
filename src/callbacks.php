@@ -365,6 +365,54 @@ if(explode('|', $cbdata)[0] == "G"){
     cb_reply($cbid, $cbtext, false, $cbmid, $gradesText, $tastiera);
 }
 
+if($cbdata == "Today"){
+    $gradesText = "";
+    $todayRaw = $user->oggiScuola();
+    $argomentiText = "";
+    $compitiText = "";
+    $votiText = "";
+    $promemoriaText = "";
+    if (count($todayRaw)==0) {
+        $todayText = "<i>Nessuna informazione da visualizzare.</i>";
+    }
+    else {
+        foreach ($todayRaw AS $thisEvento) {
+            if ($thisEvento['tipo']=="ARG") {
+                $argomentiText .= "<i>".$thisEvento['dati']['desMateria']."</i>: ".$thisEvento['dati']['desArgomento']."\n";
+            }
+            elseif ($thisEvento['tipo']=="COM") {
+                $compitiText .= "<i>".$thisEvento['dati']['desMateria']."</i>: ".$thisEvento['dati']['desCompiti']."\n";
+            }
+            elseif ($thisEvento['tipo']=="VOT") {
+                $votiText .= "<i>".$thisEvento['dati']['desMateria']."</i>: <b>".$thisEvento['dati']['codVoto']."</b>\n";
+            }
+            elseif ($thisEvento['tipo']=="PRO") {
+                $promemoriaText .= "<i>".$thisEvento['dati']['desMittente']."</i>: ".$thisEvento['dati']['desAnnotazioni']."\n";
+            }
+        }
+        if (!empty($argomentiText)) {
+            $todayText .= "\xF0\x9F\x93\x92 <b>Argomenti</b>\n".$argomentiText."\n";;
+        }
+        if (!empty($compitiText)) {
+            $todayText .= "\xf0\x9f\x93\x9a <b>Compiti</b>\n".$compitiText."\n";
+        }
+        if (!empty($votiText)) {
+            $todayText .= "\xf0\x9f\x96\x8a <b>Voti</b>\n".$votiText."\n";
+        }
+        if (!empty($promemoriaText)) {
+            $todayText .= "\xf0\x9f\x93\x9d <b>Promemoria</b>\n".$promemoriaText."\n";
+        }
+    }
+    $kb = array();
+    $kb[] = array(
+        array(
+            "text" => "\xf0\x9f\x94\x99 Torna indietro",
+            "callback_data" => "Panel"
+        )
+    );
+    cb_reply($cbid, $cbtext, false, $cbmid, "\xf0\x9f\x93\x85 <b>Sommario di oggi</b>\n\n$todayText", $kb);
+}
+
 /*if($msg == "/panel"){
     $panel[] = array(
         array(
@@ -401,4 +449,3 @@ if(explode('|', $cbdata)[0] == "G"){
     sm($chatID, "\xf0\x9f\x93\x98 <b>Benvenuto nel pannello!</b>\nScegli cosa vuoi fare.\n\n\xe2\x84\xb9\xef\xb8\x8f <i>Hai effettuato il login, se vuoi disconnetterti clicca su \"Impostazioni\", e poi su \"Disconnettiti\".</i>", $panel);
 
 }*/
-
